@@ -156,8 +156,14 @@ class SuiteLoader
         foreach ($this->files as $path) {
             $parser = new Parser($path);
             if ($class = $parser->getClass()) {
-                $this->loadedSuites[$path] = new Suite($path, $this->executableTests($path,
-                    $class->getMethods($this->options ? $this->options->annotations : array())));
+                $this->loadedSuites[$path] = new Suite(
+                    $path, 
+                    $this->executableTests(
+                        $path,
+                        $class->getMethods($this->options ? $this->options->annotations : array())
+                    ),
+                    $class->getName()
+                );
             }
         }
     }
